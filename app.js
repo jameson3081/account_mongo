@@ -1,6 +1,6 @@
 const express = require('express')
 const mongoose = require('mongoose')
-const Student = require('./models/student')//import model
+const User = require('./models/user')//import model
 
 const app = express()
 const dbUri = 'mongodb+srv://serverhost2:serverhosttest@cluster0.rngoxff.mongodb.net/testDemo?retryWrites=true&w=majority'
@@ -20,13 +20,14 @@ mongoose.connect(dbUri)
     })
 
 //CREATE
-app.get("/addStudent", (req,res) => {
+app.get("/addUser", (req,res) => {
     //insert a document
-    const s1 = new Student({
-        name: "Juancho Gomez",
-        section: "3ISB"
+    const u1 = new User({
+        username: "test2",
+        email: "test2@gmail.com",
+        password: "test2"
     })
-    s1.save()
+    u1.save()
         .then(result => {
             res.send(result)
         })
@@ -39,25 +40,11 @@ app.get("/addStudent", (req,res) => {
 
 
 })
-//CREATE 2
-app.use(express.json())
-app.post('/student' , (req,res) => {
-    const s2 = new Student(req.body)
-    s2.save()
-        .then(result => {
-            res.send(result)
-        })
-        .catch(err => {
-            throw err
-
-        } )
-
-})
 
 //READ
-app.get("/student", (req,res) => {
+app.get("/user", (req,res) => {
     //READ a document
-    Student.findById('636ee7de5f296801bd74151a')
+    User.find()
         .then(result => {
             res.send(result)
         })
@@ -66,22 +53,13 @@ app.get("/student", (req,res) => {
         })
 })
 
-app.get("/student/:id", (req,res) => {
-    //READ a document
-    Student.findById(req.params.id)
-        .then(result => {
-            res.send(result)
-        })
-        .catch(err => {
-            res.send("cannot insert record")
-        })
-})
+
 
 
 //UPDATE
-app.patch("/student", (req,res) => {
+app.patch("/user", (req,res) => {
     //READ a document
-    Student.findByIdAndUpdate('636ee7de5f296801bd74151a', {name: "Juan Gomez"})
+    User.findByIdAndUpdate('6371faeea493584d9df4d097', {password: "test2updated"})
         .then(result => {
             res.send(result)
         })
@@ -91,9 +69,9 @@ app.patch("/student", (req,res) => {
 })
 
 //DELETE
-app.delete("/student", (req,res) => {
+app.delete("/user", (req,res) => {
     //delete a document
-    Student.findByIdAndDelete('636eed07c8d3d62c5ed6258e')
+    User.findByIdAndDelete('')
         .then(result => {
             res.send(result)
         })
