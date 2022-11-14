@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const userSchema = mongoose.Schema({
+const accountSchema = mongoose.Schema({
     username: {
         type: String,
         required: true
@@ -15,5 +15,5 @@ const userSchema = mongoose.Schema({
     }
 })
 
-const User = mongoose.model("user", userSchema)//addtional 3rd argument "student" para walang "s" kung duplicate
-module.exports = User
+const Account = mongoose.model("account", accountSchema)
+module.exports = Account

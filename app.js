@@ -1,6 +1,6 @@
 const express = require('express')
 const mongoose = require('mongoose')
-const User = require('./models/user')//import model
+const Account = require('./models/account')//import model
 
 const app = express()
 const dbUri = 'mongodb+srv://serverhost2:serverhosttest@cluster0.rngoxff.mongodb.net/testDemo?retryWrites=true&w=majority'
@@ -12,7 +12,6 @@ mongoose.connect(dbUri)
         app.listen(3000, err => {
             if(!err) console.log('listening to port 3000')
         })
-        
 
     })
     .catch(error => {
@@ -20,12 +19,12 @@ mongoose.connect(dbUri)
     })
 
 //CREATE
-app.get("/addUser", (req,res) => {
+app.get("/addAccount", (req,res) => {
     //insert a document
-    const u1 = new User({
-        username: "test2",
-        email: "test2@gmail.com",
-        password: "test2"
+    const u1 = new Account({
+        username: "test",
+        email: "test@gmail.com",
+        password: "test"
     })
     u1.save()
         .then(result => {
@@ -34,17 +33,13 @@ app.get("/addUser", (req,res) => {
         .catch(err => {
             res.send("cannot insert record")
         })
-    
-
-
-
 
 })
 
 //READ
-app.get("/user", (req,res) => {
+app.get("/account", (req,res) => {
     //READ a document
-    User.find()
+    Account.find()
         .then(result => {
             res.send(result)
         })
@@ -57,9 +52,9 @@ app.get("/user", (req,res) => {
 
 
 //UPDATE
-app.patch("/user", (req,res) => {
+app.patch("/account", (req,res) => {
     //READ a document
-    User.findByIdAndUpdate('6371faeea493584d9df4d097', {password: "test2updated"})
+    Account.findByIdAndUpdate('637206586e1e2f359edaa06b', {password: "test2updated"})
         .then(result => {
             res.send(result)
         })
@@ -69,9 +64,9 @@ app.patch("/user", (req,res) => {
 })
 
 //DELETE
-app.delete("/user", (req,res) => {
+app.delete("/account", (req,res) => {
     //delete a document
-    User.findByIdAndDelete('')
+    Account.findByIdAndDelete('637206506e1e2f359edaa069')
         .then(result => {
             res.send(result)
         })
